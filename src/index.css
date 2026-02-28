@@ -1,0 +1,85 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: #0D0F13;
+    color: #C9CDD4;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #353A43;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #4C515C;
+}
+
+/* Smooth streaming text animation */
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.cursor-blink {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: #2DD4BF;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+}
+
+/* Code block inside messages */
+pre {
+    background: #08090C !important;
+    border: 1px solid #252930;
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+}
+
+p code {
+    background: #1A1D22;
+    border: 1px solid #353A43;
+    border-radius: 4px;
+    padding: 0.1em 0.4em;
+    color: #2DD4BF;
+}
