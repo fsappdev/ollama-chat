@@ -4,7 +4,9 @@ import Sidebar from './components/Sidebar.jsx'
 import ChatWindow from './components/ChatWindow.jsx'
 
 const OLLAMA_BASE = 'http://localhost:11434'
-const DEFAULT_MODEL = 'qwen2.5-coder:7b'
+//const DEFAULT_MODEL = 'qwen2.5-coder:7b'
+const DEFAULT_MODEL = 'qwen2.5:7b'
+//const DEFAULT_MODEL = 'qwen3:4b'
 
 function generateId() {
     return Date.now().toString(36) + Math.random().toString(36).slice(2)
