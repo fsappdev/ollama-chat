@@ -5,7 +5,8 @@ import ChatWindow from './components/ChatWindow.jsx'
 
 const OLLAMA_BASE = 'http://localhost:11434'
 //const DEFAULT_MODEL = 'qwen2.5-coder:7b'
-const DEFAULT_MODEL = 'qwen2.5:7b'
+//const DEFAULT_MODEL = 'qwen2.5:7b'
+const DEFAULT_MODEL = 'qwen3.5:4b'
 //const DEFAULT_MODEL = 'qwen3:4b'
 
 function generateId() {
