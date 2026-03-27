@@ -3,10 +3,13 @@ import { AppShell, Box } from '@mantine/core'
 import Sidebar from './components/Sidebar.jsx'
 import ChatWindow from './components/ChatWindow.jsx'
 
-const OLLAMA_BASE = 'http://localhost:11434'
+//const OLLAMA_BASE = 'http://localhost:11434'
+//const OLLAMA_BASE = 'http://localhost:1234'
+const LM_STUDIO_BASE = 'http://192.168.189.112:1234'
 //const DEFAULT_MODEL = 'qwen2.5-coder:7b'
 //const DEFAULT_MODEL = 'qwen2.5:7b'
-const DEFAULT_MODEL = 'qwen3.5:4b'
+//const DEFAULT_MODEL = 'qwen3.5:4b'
+const DEFAULT_MODEL = 'qwen3:8b'
 //const DEFAULT_MODEL = 'qwen3:4b'
 
 function generateId() {
@@ -75,7 +78,7 @@ export default function App() {
                 content: m.content,
             }))
 
-            const response = await fetch(`${OLLAMA_BASE}/api/chat`, {
+            const response = await fetch(`${LM_STUDIO_BASE}/v1/chat/completions`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -100,9 +103,14 @@ export default function App() {
 
                 for (const line of lines) {
                     try {
-                        const data = JSON.parse(line)
-                        if (data.message?.content) {
-                            accumulated += data.message.content
+                        // LM Studio devuelve líneas con formato "data: {...}"
+                        const jsonStr = line.replace(/^data: /, '')
+                        if (jsonStr === '[DONE]') break
+                        
+                        const data = JSON.parse(jsonStr)
+                        const contentDelta = data.choices?.[0]?.delta?.content
+                        if (contentDelta) {
+                            accumulated += contentDelta
                             setChats(prev => prev.map(c => {
                                 if (c.id !== activeChatId) return c
                                 return {
@@ -136,7 +144,7 @@ export default function App() {
                     ...c,
                     messages: c.messages.map(m =>
                         m.id === assistantMsg.id
-                            ? { ...m, content: `❌ Error conectando con Ollama: ${err.message}\n\nAsegurate de que Ollama esté corriendo en \`${OLLAMA_BASE}\``, streaming: false }
+                            ? { ...m, content: `❌ Error conectando con LM Studio: ${err.message}\n\nAsegurate de que LM Studio esté corriendo en \`${LM_STUDIO_BASE}\``, streaming: false }
                             : m
                     ),
                 }
